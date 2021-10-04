@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     string direction = "forward";
 
+    bool bounceTime = false;
+
     /*-------------------------------------------------------  Start / Update  ----------------------------------------------------------*/
 
     // Start is called before the first frame update
@@ -26,24 +28,39 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x > 3.4 || transform.position.x < -3.4)
-        {
-            
+        if (!bounceTime) {
+            if (transform.position.x > 3.4)
+            {
+                direction = "counter";
+            }
+            else if (transform.position.x < -3.4)
+            {
+                direction = "clockwise";
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    direction = "clockwise";
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    direction = "counter";
+                }
+                else
+                {
+                    direction = "forward";
+                }
+            }
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            direction = "clockwise";
-        } else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            direction = "counter";
-        } else
-        {
-            direction = "forward";
+        if (transform.rotation.z > -0.71 && transform.rotation.z < 0.71) {
+            transform.Translate(0, -speed * Time.deltaTime, 0);
+        } else {
+            Bounce();
         }
 
-        switch (direction)
-        {
+        switch (direction) {
             case "counter":
                 transform.Rotate(0,0,turnSpeed*Time.deltaTime);
                 break;
@@ -54,16 +71,18 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-
-        if (transform.rotation.z > -90 || transform.rotation.z < 90) {
-            transform.Translate(0, -speed * Time.deltaTime, 0);
-        } else {
-            Debug.Log("can't dig");
-        }
     }
 
     /*-----------------------------------------------------  Additional Functions  -------------------------------------------------------*/
     
+    private IEnumerator BounceIE() {
+        yield return new WaitForSeconds(0.5f);
+        bounceTime = false;
+    }
 
-
+    void Bounce() {
+        bounceTime = true;
+        transform.Rotate(0, 0, 180);
+        StartCoroutine(BounceIE());
+    }
 }
