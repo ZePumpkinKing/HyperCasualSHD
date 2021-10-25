@@ -11,23 +11,31 @@ public class PlayerController : MonoBehaviour
     ------------------------------------------------------  Variable Declarations  ------------------------------------------------------*/
 
     public float speed = 3.0f;
-    public float turnSpeed = 150.0f;
+    public float turnSpeed = 200.0f;
+    public float horizontalBound = 2.6f;
+    public float upperBound = 7f;
+    public float lowerBound = 6f;
 
     string direction = "forward";
 
     bool bounceTime = false;
+
+    public GameObject paint;
+    public GameObject obstacle;
+    private GameObject background;
 
     /*-------------------------------------------------------  Start / Update  ----------------------------------------------------------*/
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        background = GameObject.Find("Background");
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         if (!bounceTime) {
             if (transform.position.x > 3.4)
             {
@@ -50,16 +58,46 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     direction = "forward";
+=======
+        // paints a mask that hides the background at the player every 3 frames
+        if (int.Parse(Time.frameCount.ToString()) % 3 == 0 || int.Parse(Time.frameCount.ToString()) < 30) {
+            //Debug.Log("painting!");
+            Instantiate(paint, transform.position, new Quaternion(), background.transform);
+        }
+
+        // Manager for player movement
+        if (!bounceTime) {
+            if (transform.position.x > horizontalBound) {
+                Bounce();
+            } else if (transform.position.x < -horizontalBound) {
+                Bounce();
+            } else if (transform.position.y > upperBound) {
+                Bounce();
+            } else if (transform.position.y < -lowerBound) {
+                Bounce();
+            } else {
+                if (Input.GetMouseButton(0)) {
+                    direction = "counter";
+                } else {
+                    direction = "clockwise";
+>>>>>>> Stashed changes
                 }
             }
         }
 
+<<<<<<< Updated upstream
         if (transform.rotation.z > -0.71 && transform.rotation.z < 0.71) {
             transform.Translate(0, -speed * Time.deltaTime, 0);
         } else {
             Bounce();
         }
 
+=======
+        // Moves the player forward
+        transform.Translate(0, -speed * Time.deltaTime, 0);
+
+        // Movement direction filter
+>>>>>>> Stashed changes
         switch (direction) {
             case "counter":
                 transform.Rotate(0,0,turnSpeed*Time.deltaTime);
@@ -73,16 +111,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*-----------------------------------------------------  Additional Functions  -------------------------------------------------------*/
-    
-    private IEnumerator BounceIE() {
-        yield return new WaitForSeconds(0.5f);
-        bounceTime = false;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Hit!");
+        if (collision == obstacle.GetComponent<Collision2D>()) {
+            GameOver();
+        }
     }
 
+    /*-----------------------------------------------------  Additional Functions  -------------------------------------------------------*/
+
+    private IEnumerator BounceIE() {
+        yield return new WaitForSeconds(0.25f);
+        bounceTime = false;
+    }
+    
     void Bounce() {
+        transform.Rotate(0, 0, 180f);
         bounceTime = true;
-        transform.Rotate(0, 0, 180);
         StartCoroutine(BounceIE());
+    }
+
+    void GameOver() {
+        Debug.Log("Game Over");
+        Time.timeScale = 0;
     }
 }
