@@ -35,30 +35,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< Updated upstream
-        if (!bounceTime) {
-            if (transform.position.x > 3.4)
-            {
-                direction = "counter";
-            }
-            else if (transform.position.x < -3.4)
-            {
-                direction = "clockwise";
-            }
-            else
-            {
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    direction = "clockwise";
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    direction = "counter";
-                }
-                else
-                {
-                    direction = "forward";
-=======
         // paints a mask that hides the background at the player every 3 frames
         if (int.Parse(Time.frameCount.ToString()) % 3 == 0 || int.Parse(Time.frameCount.ToString()) < 30) {
             //Debug.Log("painting!");
@@ -80,24 +56,14 @@ public class PlayerController : MonoBehaviour
                     direction = "counter";
                 } else {
                     direction = "clockwise";
->>>>>>> Stashed changes
                 }
             }
         }
 
-<<<<<<< Updated upstream
-        if (transform.rotation.z > -0.71 && transform.rotation.z < 0.71) {
-            transform.Translate(0, -speed * Time.deltaTime, 0);
-        } else {
-            Bounce();
-        }
-
-=======
         // Moves the player forward
         transform.Translate(0, -speed * Time.deltaTime, 0);
 
         // Movement direction filter
->>>>>>> Stashed changes
         switch (direction) {
             case "counter":
                 transform.Rotate(0,0,turnSpeed*Time.deltaTime);
