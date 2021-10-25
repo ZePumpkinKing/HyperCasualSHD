@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject paint;
     public GameObject obstacle;
+    public GameObject collectible;
     private GameObject background;
 
     /*-------------------------------------------------------  Start / Update  ----------------------------------------------------------*/
@@ -79,9 +80,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit!");
-        if (collision == obstacle.GetComponent<Collision2D>()) {
+        if (collision.gameObject.name == obstacle.name) {
+            Debug.Log("Hit!");
             GameOver();
+        }
+        if (collision.gameObject.name == collectible.name) {
+            Debug.Log("Shiny!");
         }
     }
 
