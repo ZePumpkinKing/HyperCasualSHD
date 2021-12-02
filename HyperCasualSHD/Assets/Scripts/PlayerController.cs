@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 3.0f;
     public float turnSpeed = 200.0f;
-    public float horizontalBound = 2.6f;
-    public float upperBound = 7f;
-    public float lowerBound = 6f;
+    public float horizontalBound = 9.8f;
+    public float upperBound = 6.4f;
+    public float lowerBound = 4.4f;
 
     string direction = "forward";
 
