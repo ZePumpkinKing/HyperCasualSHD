@@ -16,22 +16,10 @@ public class MagmaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int rockCount = 0;
-        rocks = GetComponentsInChildren<Transform>();
-
-        foreach (Transform rock in rocks)
-        {
-            if (rock.name == "MagmaController") {
-                
-            } else {
-                rockCount += 1;
-                //Debug.Log(rockCount);
-            }
-        }
-
-        if (rockCount < 5)
+        if (GameObject.FindGameObjectsWithTag("hotRock").Length < 5)
         {
             SpawnRock();
+            Debug.Log("eruption!");
         }
     }
 

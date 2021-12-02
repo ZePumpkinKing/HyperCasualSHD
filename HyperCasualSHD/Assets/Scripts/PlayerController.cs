@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     string direction = "forward";
 
     bool bounceTime = false;
+    bool safeZone = false;
 
     public GameObject paint;
     private GameObject background;
@@ -36,8 +37,10 @@ public class PlayerController : MonoBehaviour
     {
         // paints a mask that hides the background at the player every 3 frames
         if (int.Parse(Time.frameCount.ToString()) % 3 == 0 || int.Parse(Time.frameCount.ToString()) < 30) {
-            //Debug.Log("painting!");
-            Instantiate(paint, transform.position, new Quaternion(), background.transform);
+            if (!safeZone) {
+                //Debug.Log("painting!");
+                Instantiate(paint, transform.position, new Quaternion(), background.transform);
+            }
         }
 
         // Manager for player movement
@@ -84,6 +87,24 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("gem")) {
             Debug.Log("Shiny!");
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+        if (collision.gameObject.name == "SafeZone")
+        {
+            Debug.Log("safe!");
+            safeZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "SafeZone")
+        {
+            safeZone = false;
         }
     }
 
