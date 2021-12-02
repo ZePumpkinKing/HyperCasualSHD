@@ -25,7 +25,7 @@ public class MagmaController : MonoBehaviour
                 
             } else {
                 rockCount += 1;
-                Debug.Log(rockCount);
+                //Debug.Log(rockCount);
             }
         }
 

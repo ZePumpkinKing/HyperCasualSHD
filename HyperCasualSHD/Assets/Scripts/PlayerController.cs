@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
     bool bounceTime = false;
 
     public GameObject paint;
-    public GameObject obstacle;
-    public GameObject collectible;
     private GameObject background;
 
     /*-------------------------------------------------------  Start / Update  ----------------------------------------------------------*/
@@ -80,11 +78,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == obstacle.name) {
+        if (collision.gameObject.CompareTag("hotRock")) {
             Debug.Log("Hit!");
             GameOver();
         }
-        if (collision.gameObject.name == collectible.name) {
+        if (collision.gameObject.CompareTag("gem")) {
             Debug.Log("Shiny!");
         }
     }
