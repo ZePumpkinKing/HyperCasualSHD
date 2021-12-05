@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 338377517}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338377516}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.66, z: -0.3}
+  m_LocalPosition: {x: -0.05, y: 0.59, z: -0.3}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1225167103}
@@ -750,6 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d701bcec64c3a04f974a9e791000504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  door: {fileID: 700784139}
 --- !u!1 &1225167102
 GameObject:
   m_ObjectHideFlags: 0

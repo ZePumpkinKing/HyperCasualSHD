@@ -9,18 +9,23 @@ public class Crystal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.parent.position = player.transform.position;
+
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("clink!");
-        player = collision.gameObject;
+        if (collision.CompareTag("Player"))
+        {
+            // Debug.Log("clink!");
+            player = collision.gameObject;
+            transform.parent = player.transform;
+            transform.localPosition = new Vector3(0,0.3f,0);
+        }
     }
 }

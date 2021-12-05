@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public GameObject paint;
     private GameObject background;
 
+    public int gemCount;
+
     /*-------------------------------------------------------  Start / Update  ----------------------------------------------------------*/
 
     // Start is called before the first frame update
@@ -87,6 +89,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("gem")) {
             Debug.Log("Shiny!");
+            gemCount += 1;
         }
     }
 
@@ -95,8 +98,9 @@ public class PlayerController : MonoBehaviour
         
         if (collision.gameObject.name == "SafeZone")
         {
-            Debug.Log("safe!");
+            // Debug.Log("safe!");
             safeZone = true;
+            gemCount = 0;
         }
     }
 

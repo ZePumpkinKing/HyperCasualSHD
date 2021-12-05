@@ -19,18 +19,24 @@ public class MagmaController : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("hotRock").Length < 5)
         {
             SpawnRock();
-            Debug.Log("eruption!");
+            // Debug.Log("eruption!");
         }
     }
 
     void SpawnRock()
     {
-        Instantiate(hotRock, NewPosition(), new Quaternion(), transform);
+        GameObject rock = Instantiate(hotRock, NewPosition(), new Quaternion(), transform);
+        rock.transform.localScale = new Vector3(0f,0f,0f);
     }
 
     Vector3 NewPosition()
     {
         Vector3 position = new Vector3(Random.Range(-9f, 9f), Random.Range(-4, 6), -0.3f);
+        if (Physics.BoxCast(position, new Vector3(0.5f,0.5f,0.5f), Vector3.zero))
+        {
+            Debug.Log("Unsafe rock spawn");
+            position = NewPosition();
+        }
         return position;
     }
 }
